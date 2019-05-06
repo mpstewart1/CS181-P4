@@ -11,9 +11,13 @@ In this documentation we outline the methods used to attain the highest possible
 
 
 # Overview of Models
+
+The score for the three models developed in this practical are outlined in the table below.
   
 Model | Score
 :------------: | :-------------:
 Q-Learning | 100
 DQN | 100
 DDQN | 100
+
+Hyperparameter optimization was performed in order to optimize for the $/epsilon$-greedy policy, the learning rate $\alpha$, as well as the discount rate $\gamma$, and other factors such as the neural architecture and hyperparameters of the deep neural network in the deep learning models.
