@@ -12,9 +12,7 @@ In this documentation we outline the methods used to attain the highest possible
 
 To install Swingy Monkey, follow the instructions below. For tips on installing `pygame`, see the [pygame](http://stackoverflow.com/questions/22314904/installing-pygame-with-enthought-canopy-on-mac) documentation.
 
->     brew install sdl sdl_ttf sdl_image sdl_mixer
->     brew install hg
->     sudo pip install hg+http://bitbucket.org/pygame/pygame
+>     pip install pygame
 
 ## Running Models
 
@@ -23,7 +21,6 @@ To run the individual models, first make sure you have `pygame` installed. Then 
 >     python Q-learning_model.py 
 >     python DQN.py
 >     python DDQN.py
-
 
 ## Overview of Models
 
