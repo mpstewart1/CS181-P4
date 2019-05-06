@@ -28,8 +28,8 @@ The score for the three models developed in this practical are outlined in the t
   
 Model | Maximum Score | Mean Score
 :------------: | :-------------: | :-------------:
-Q-Learning | 10 | 4.1
-DQN | 169 | 22.7
-DDQN | 118 | 17.6
+**Q-Learning** | 10 | 4.1
+**DQN** | 169 | 22.7
+**DDQN** | 118 | 17.6
 
 Hyperparameter optimization was performed in order to optimize for the &epsilon;-greedy policy, the learning rate &alpha;, as well as the discount rate &gamma;, and other factors such as the neural architecture and hyperparameters of the deep neural network in the deep learning models.
