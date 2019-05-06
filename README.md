@@ -20,4 +20,4 @@ Q-Learning | 100
 DQN | 100
 DDQN | 100
 
-Hyperparameter optimization was performed in order to optimize for the &epsilon-greedy policy, the learning rate &alpha, as well as the discount rate &gamma, and other factors such as the neural architecture and hyperparameters of the deep neural network in the deep learning models.
+Hyperparameter optimization was performed in order to optimize for the &epsilon;-greedy policy, the learning rate &alpha;, as well as the discount rate &gamma;, and other factors such as the neural architecture and hyperparameters of the deep neural network in the deep learning models.
