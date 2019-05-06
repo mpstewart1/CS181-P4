@@ -28,7 +28,7 @@ class DQN(object):
         self.alpha = 0.8
         self.gamma = 0.98
         self.epsilon = 1.0
-        self.epsilon_min = 0.01
+        self.epsilon_min = 0.001
         self.epsilon_decay = 0.99
         self.update_freq = 100
         self.start_len_memory = 500
@@ -38,7 +38,6 @@ class DQN(object):
         self.last_state  = None
         self.last_action = None
         self.last_reward = None
-
 
         # neural net hyperparameters
         self.lr = 0.001
@@ -134,6 +133,7 @@ class DQN(object):
         # train model once you have sufficient memory
         if len(self.memory) < self.start_len_memory:
             return
+
         # random mini batch of transitions from memory
         mini_batch = random.sample(self.memory, self.n_mini_batch)
 
@@ -160,7 +160,7 @@ class DQN(object):
         '''This gets called so you can see what reward you get.'''
         self.last_reward = reward
 
-def run_games(learner, hist, iters = 100, t_len = 100):
+def run_games(learner, hist, iters = 100, t_len = 100, max_score=100, avg_n=10, avg_score=10):
     '''
     Driver function to simulate learning by having the agent play a sequence of games.
     '''
@@ -178,12 +178,16 @@ def run_games(learner, hist, iters = 100, t_len = 100):
 
         # Save score history.
         hist.append(swing.score)
-        if len(hist) < 100:
+        if len(hist) < avg_n:
             avgscore = np.mean(hist)
         else:
-            avgscore = np.mean(hist[-100:])
+            avgscore = np.mean(hist[-avg_n:])
         print("epoch:",ii, "highest:", np.max(hist),
             "current score:", swing.score, "average:", avgscore)
+
+        # early stopping condition
+        if (np.max(hist) > max_score) & (avgscore > avg_score):
+            pg.quit()
         # Reset the state of the learner.
         learner.reset()
     pg.quit()
@@ -198,7 +202,7 @@ if __name__ == '__main__':
 	hist = []
 
 	# Run games.
-	run_games(agent, hist, 1000, 1)
+	run_games(agent, hist, 500, 1)
 
 	# Save history.
-	np.save('hist_dqn',np.array(hist))
+	np.save('hist_dqn_new',np.array(hist))
