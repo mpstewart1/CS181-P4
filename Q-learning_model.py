@@ -109,27 +109,16 @@ class QLearner:
             self.Q[st + at] = self.Q[st + at] + alpha * (reward + self.gamma * np.max(self.Q[st_1]) - self.Q[st + at] )
 
         #self.last_reward = reward
-def testgame(iters=100,show=True):
 
-    learner = QLearner()
-
-    highestscore = 0
-    avgscore = 0
-    record={}
-    record['epoch']=[]
-    record['highest']=[]
-    record['avg']=[]
-    record['score']=[]
-    record['q']=[]
-
+def run_games(learner, hist, iters = 100, t_len = 100):
+    '''
+    Driver function to simulate learning by having the agent play a sequence of games.
+    '''
     for ii in range(iters):
-
-        learner.epsilon = 1/(ii+1)
-
         # Make a new monkey object.
-        swing = SwingyMonkey(sound=False,            # Don't play sounds.
-                             text="Epoch %d" % (ii), # Display the epoch on screen.
-                             tick_length=1,          # Make game ticks super fast.
+        swing = SwingyMonkey(sound=False,                  # Don't play sounds.
+                             text="Epoch %d" % (ii),       # Display the epoch on screen.
+                             tick_length = t_len,          # Make game ticks super fast.
                              action_callback=learner.action_callback,
                              reward_callback=learner.reward_callback)
 
@@ -137,24 +126,29 @@ def testgame(iters=100,show=True):
         while swing.game_loop():
             pass
 
-        score = swing.get_state()['score']
-        highestscore = max([highestscore, score])
-        avgscore = (ii*avgscore+score)/(ii+1)
-        q=round(float(np.count_nonzero(learner.Q))*100/learner.Q.size,3)
-        
-        if show==True:
-            print("epoch:",ii, "highest:", highestscore, "current score:", score, "average:", avgscore, "% of Q mx filled:", q) 
-            
-        record['epoch'].append(ii)
-        record['highest'].append(highestscore)
-        record['avg'].append(avgscore)
-        record['score'].append(score)
-        record['q'].append(q)
-        pickle.dump( record, open( "record1.p", "wb" ) )  
+        # Save score history.
+        hist.append(swing.score)
+        if len(hist) < 100:
+            avgscore = np.mean(hist)
+        else:
+            avgscore = np.mean(hist[-100:])
+        print("epoch:",ii, "highest:", np.max(hist),
+            "current score:", swing.score, "average:", avgscore)
         # Reset the state of the learner.
         learner.reset()
-    
+    pg.quit()
+    return
 
-    return avgscore,highestscore,score
+if __name__ == '__main__':
 
-testgame(iters=5000,show=False)
+	# Select agent.
+	agent = QLearner()
+
+	# Empty list to save history.
+	hist = []
+
+	# Run games.
+	run_games(agent, hist, 1000, 1)
+
+	# Save history.
+	np.save('hist_qlearning',np.array(hist))
