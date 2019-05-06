@@ -5,7 +5,7 @@ This repository documents the work completed by Matthew Stewart, Claire Stolz, a
 In this documentation we outline the methods used to attain the highest possible score on the game by using Q-learning and its deep learning-based extensions, commonly referred to as DQN (Deep Q-Learning) and DDQN (Double Deep Q-Learning).
 
 <p align="center">
-  <img width="600" height="500" src="https://github.com/mrdragonbear/CS181-P4/blob/master/Swingy_Monkey.png">
+  <img width="700" height="500" src="https://github.com/mrdragonbear/CS181-P4/blob/master/Swingy_Monkey.png">
 </p>
 
 
